@@ -1,0 +1,62 @@
+/* pages/note_detail/noteDetail.wxss */
+
+.flex-column{
+  display: flex;
+  flex-direction:column;
+  justify-content:space-around;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column view{
+  margin: 30rpx 0rpx;
+}
+
+.view-whole{
+  height: 100vh;
+  
+}
+
+.view-second{
+  padding: 50rpx 20rpx 60rpx 30rpx;
+}
+
+.view-title{
+  margin: 0rpx 0rpx 10rpx 0rpx;
+  font-size: 60rpx;
+  justify-content:space-between;
+}
+
+.view-author{
+  font-size: 44rpx;
+}
+
+.view-content{
+  font-size: 46rpx;
+}
+
+
+
+
+
+.text-grey{
+  font-style: italic;
+  font-weight: 400;
+}
+
+.text-title{
+  font-style: italic;
+  font-weight: 600;
+}
+
+.text-author{
+  font-style: italic;
+  font-weight: 500;
+}
+
+.text-content{
+  font-size: 660;
+}

@@ -1,0 +1,95 @@
+<view>
+<!-- game page -->
+
+  <!-- mp3资源 -->
+  <view style='width:0rpx;height:0rpx;'>
+    <view>
+      <audio wx:key='h' wx:for='{{hiragana}}' wx:for-item='item' src='{{item.voice}}' id="{{item.word}}" > </audio>
+    </view>
+    <view>
+      <audio wx:key='k' wx:for='{{katakana}}' wx:for-item='item' src='{{item.voice}}' id="{{item.word}}" > </audio>
+    </view>
+  </view>
+
+  <!-- 顶部信息 纵向 -->
+  <view class='message-box'>
+    <!-- 动态信息 横向 -->
+    <view class='message-native'>
+      <!-- 时间与分数 文字 纵向 -->
+      <view class='message-text' style='width: 40%;'>
+        <text style='margin: 3rpx 0rpx;'>Time：{{time}}s</text>
+        <text style='margin: 3rpx 0rpx;'>Score: {{score}}</text>
+        <button wx:if="{{hasUserInfo}}" bindtap='refresh' class='accent-color' style='width: 230rpx;height: 88rpx;'> 重来 </button>
+      </view>
+      <!-- 用户头像 -->
+        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class='accent-color' bindtap='refresh' style='width: 40%;'> 开始游戏 </button>
+        <view wx:else class='message-native'>
+          <view class='message-text'>
+            <image src='/images/game/ic_help_outline_black_48dp.png' class="pause" bindtap="showHelpDialogBtn" style='margin: 6rpx 40rpx 6rpx 3rpx;'></image>
+            <text class="userinfo-nickname" style='margin: 20rpx 3rpx 3rpx 3rpx;'>{{userInfo.nickName}}</text>
+          </view>
+          
+          <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+        </view>
+    </view>
+    <!-- 倒计时读条 -->
+    <view></view>
+  </view>
+
+  <!-- 主棋盘 6×6 -->
+  <view class='game-board board-row'>
+    <view class='board-column' wx:for='{{chess}}'wx:for-item='rowItem' wx:key="x">
+      <view  wx:for='{{rowItem}}' wx:key="y" wx:for-item='chessItem'>
+        <text wx:if="{{chessItem.no > 0}}" class='chessItem light-primary-color' bindtap='check' data-chess-no='{{chessItem.no}}' data-chess-xx='{{chessItem.x}}' data-chess-yy='{{chessItem.y}}' data-chess-word='{{chessItem.word}}'>{{chessItem.word}}</text>
+        <text wx:elif="{{chessItem.no == -1}}" class='chessItem selected-color' bindtap='check' data-chess-no='{{chessItem.no}}' data-chess-xx='{{chessItem.x}}' data-chess-yy='{{chessItem.y}}' data-chess-word='{{chessItem.word}}'>{{chessItem.word}}</text>
+        <text wx:else class='chessItem dark-primary-color' bindtap='' data-chess-no='{{chessItem.no}}' data-chess-xx='{{chessItem.x}}' data-chess-yy='{{chessItem.y}}'>X</text>
+      </view>
+    </view>
+  </view>
+
+<!--弹窗-->
+<view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="help-dialog" wx:if="{{showModal == 1}}">
+  <view class="help-title">游戏规则</view>
+  <view class="help-content">
+    <text>
+      1. 点击"开始游戏"/"重来"可以初始化游戏。
+      2. 游戏规则为：分别选中发音相同的平假名和片假名，每成功消除一组可得20分，比比谁更快消除所有格子吧
+      3. 若想再次查看帮助可点击问号
+      4. 若需要暂停游戏也可以点击问号哦
+    </text>
+  </view>
+  <view class="modal-footer">
+    <!-- <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view> -->
+    <view class="help-confirm accent-color" bindtap="okHelp">我明白了</view>
+  </view>
+</view>
+
+
+<view class="help-dialog" wx:elif="{{showModal == 2}}">
+  <view class="help-title">游戏成绩</view>
+  <view class="help-content">
+    <text>
+      恭喜你消除了所有假名！
+      用时：{{time}}s！
+    </text>
+  </view>
+  <view class="modal-footer">
+    <view class="btn-cancel" bindtap="onCancel" data-status="share">分享</view>
+    <view class="btn-confirm accent-color" bindtap="okOver" data-status="confirm">我知道了</view>
+  </view>
+</view>
+
+<view class="help-dialog" wx:elif="{{showModal == 3}}">
+  <view class="help-title">服务器出错</view>
+  <view class="help-content">
+    <text>
+      服务器出了点问题，暂时无法使用
+    </text>
+  </view>
+  <view class="modal-footer">
+    <view class="help-confirm accent-color" bindtap="okError" data-status="confirm">我知道了</view>
+  </view>
+</view>
+
+</view>

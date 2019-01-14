@@ -1,0 +1,41 @@
+/**
+     * 弹窗
+     */
+var showDialogBtn = function () {
+  this.setData({
+    showModal: true
+  })
+};
+/**
+ * 弹出框蒙层截断touchmove事件
+ */
+var preventTouchMove = function () {
+};
+/**
+ * 隐藏模态对话框
+ */
+var hideModal = function () {
+  this.setData({
+    showModal: false
+  });
+};
+/**
+ * 对话框取消按钮点击事件
+ */
+var onCancel = function () {
+  this.hideModal();
+};
+/**
+ * 对话框确认按钮点击事件
+ */
+var onConfirm = function () {
+  this.hideModal();
+};
+
+module.exports = {
+  showDialogBtn: showDialogBtn,
+  preventTouchMove: preventTouchMove,
+  hideModal: hideModal,
+  onCancel: onCancel,
+  onConfirm: onConfirm
+}

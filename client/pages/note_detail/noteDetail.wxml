@@ -1,0 +1,25 @@
+<view class='view-whole note-backgroud'>
+  <view class='flex-column view-second'>
+  
+    <view class='flex-row view-title'>
+      <view class='flex-row' style='margin:0rpx;padding: 0rpx 4rpx 0rpx 0rpx;'>
+        <text class='secondary-text-color text-grey'>TITLE: </text>
+        <text class='primary-text-color text-title'>{{noteObject.title}}</text>
+      </view>
+      <image src='/images/game/ic_mode_edit_black_48dp.png' class='accent-color' mode='scaleToFill' bindtap='toEdit' style='width: 80rpx; height: 80rpx;margin: 0rpx 30rpx 0rpx 0rpx;border-radius:10%;'></image>
+    </view>
+
+    <view class='flex-row view-author' style='padding: 0rpx 4rpx 0rpx 0rpx;'>
+      <text class='secondary-text-color text-grey'>auth: </text>
+      <text class='primary-text-color text-author'>{{noteObject.author}}</text>
+    </view>
+
+    <view class='flex-column view-content' style='padding: 0rpx 4rpx 0rpx 0rpx;'>
+      <text class='secondary-text-color text-grey'>Content: </text>
+      <text class='primary-text-color text-content' style='margin: 1rpx 0rpx;'>{{noteObject.content}}</text>
+    </view>
+
+
+    
+  </view>
+</view>

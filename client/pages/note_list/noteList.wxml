@@ -1,0 +1,27 @@
+<view >
+  <!-- note page -->
+  <form>
+    <view style='display: flex;flex-direction:row;justify-content:space-between;align-items: center;padding-top: 20rpx;'>
+      <view style='align-items: center;'>
+        <text style='margin:0rpx 9rpx;padding: 0rpx 9rpx;'>Search by author: </text>
+      </view>
+      <view style='display: flex;flex-direction:row;justify-content:center;'>
+        <image src='/images/game/add.png' mode='scaleToFill' bindtap='toAdd' style='width: 100rpx; height: 100rpx;margin: 0rpx 30rpx 0rpx 0rpx;border-radius:10%;'></image>
+        <image src='/images/bar/ic_search_black_48dp.png' bindtap='search' mode='scaleToFill' style='width: 100rpx; height: 100rpx;margin: 0rpx 18rpx 0rpx 0rpx;border-radius:10%;' class='accent-color'></image>
+      </view>
+    </view>
+    <input bindinput="getAuthor" class='text-search-back' type='text' placeholder='Author name' style='height: 80rpx;margin:0rpx 0rpx 0rpx 4rpx;padding: 10rpx 10rpx 10rpx 14rpx;'></input>
+
+    <view class='note-list'>
+      <!-- <view class='note-div'>
+        <text style='font-size: 58rpx;'>Title</text>
+        <text>content</text>
+      </view> -->
+      <view class='note-div note-backgroud' wx:for='{{noteList}}' wx:key='k' bindtap='toDetail' data-index-id='{{index}}'>
+        <text class='single-line' style='font-size: 58rpx;'>{{item.title}}</text>
+        <text class='single-line'>{{item.author}}|{{item.content}}</text>
+      </view>
+    </view>
+
+  </form>
+</view>

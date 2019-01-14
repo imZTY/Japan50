@@ -1,0 +1,85 @@
+<view class='note-backgroud display-left-flex'>
+
+
+  <!-- <text>add note page</text> -->
+
+  <text class='page-tittle'>Add note.</text>
+  <view>
+    <text>Note title:</text>
+    <input class='message-input' placeholder-class="input-holder" type="text" maxlength="15" bindinput="getTitle" placeholder='输入标题' disabled='{{showModal>0}}' value='{{title}}'></input>
+  </view>
+
+  <view>
+    <text>Note content:</text>
+    <textarea wx:if='{{!showModal>0}}' class='message-input' bindinput="getContent" placeholder-class="input-holder"  placeholder='笔记内容' style='height:300rpx;' maxlength="500" disabled='{{showModal>0}}' value='{{content}}'></textarea>
+    <view wx:else class='message-input textarea' style='height:300rpx;' placeholder-class="input-holder"  placeholder='笔记内容' maxlength="500" catchtouchmove="preventTouchMove" ><text>{{content}}</text></view>
+  </view>
+
+  <view>
+    <text>Author sign:</text>
+    <input class='message-input' type='text' disabled='{{showModal>0}}' placeholder-class="input-holder" maxlength="10" bindinput="getAuthor" placeholder='署名' value='{{author}}'></input>
+  </view>
+  <button bindtap="showConfirmDialog">确认提交</button>
+
+
+
+
+  <!--以下是弹窗相关内容-->
+  <view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showModal>0}}"></view>
+  <!-- 
+  <view class="modal-dialog" wx:if="{{showModal == 9}}">
+    <view class="modal-title">添加数量</view>
+    <view class="modal-content">
+      <view class="modal-input">
+        <input placeholder-class="input-holder" type="number" maxlength="10" bindinput="inputChange" class="input" placeholder="请输入数量"></input>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+      <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+    </view>
+  </view> -->
+
+  <view class="confirm-dialog" wx:if="{{showModal == 1}}">
+    <view class="confirm-title">请为笔记设置密码</view>
+    <view class="confirm-content">
+      <input placeholder-class="input-holder" password type="password" maxlength="15" bindinput="getPwd" class="input ui-background" placeholder="在此输入密码"></input>
+    </view>
+    <view class="modal-footer">
+      <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确认</view>
+    </view>
+  </view>
+
+  <view class="confirm-dialog" catchtouchmove="preventTouchMove" wx:elif="{{showModal == 2}}">
+    <view class="confirm-title">真的要修改吗</view>
+    <view class="confirm-content">
+      <input placeholder-class="input-holder" password type="password" maxlength="15" bindinput="getPwd" class="input ui-background" placeholder="输入密码完成修改"></input>
+    </view>
+    <view class="modal-footer">
+      <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确认</view>
+    </view>
+  </view>
+
+
+  <view class="message-dialog" wx:elif="{{showModal == 3}}">
+    <view class="confirm-title">完成</view>
+    <view class="message-content">
+      <text>{{message}}</text>
+    </view>
+    <view class="modal-footer">
+      <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确认</view>
+    </view>
+  </view>
+
+
+  <view class="message-dialog" wx:elif="{{showModal == 4}}">
+    <view class="confirm-title">错误</view>
+    <view class="message-content">
+      <text>{{message}}</text>
+    </view>
+    <view class="modal-footer">
+      <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确认</view>
+    </view>
+  </view>
+
+</view>
