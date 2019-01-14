@@ -26,7 +26,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     // console.log(options);
-    setTimeout(function(){ //多线程
+    setTimeout(function(){ //这里忘记为什么要用延时了
       switch (options.isEdit) {
         case '0': wx.setNavigationBarTitle({
           title: '添加笔记'

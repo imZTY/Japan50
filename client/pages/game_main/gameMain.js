@@ -1059,7 +1059,7 @@ Page({
     if (this.data.k) {
       const innerAudioContext = wx.createInnerAudioContext();
       innerAudioContext.autoplay = true;
-      innerAudioContext.src = 'http://p7xnxhjxx.bkt.clouddn.com/%E5%8D%A1%E5%86%9C.mp3';
+      innerAudioContext.src = 'http://qiniu.zengtianyi.top/%E5%8D%A1%E5%86%9C0.mp3';
       innerAudioContext.loop = true;
       innerAudioContext.volume = 0.15;
       innerAudioContext.play();
