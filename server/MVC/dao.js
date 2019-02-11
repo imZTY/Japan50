@@ -1,40 +1,59 @@
-const { mysql: config } = require('../config')
 //与mysql的交互方法
 var mysql      = require('mysql');
-var connection = mysql.createConnection({
-  host: config.host,
-  port: config.port,
-  user: config.user,
-  database: config.database,
-  password: config.password,
-  charset: config.charset
-});
+var option = {
+  host: 'localhost',
+  port: 3306,
+  user: 'root',
+  database: 'japan',
+  password: 'root',
+  charset: 'utf8'
+};
 
-connection.on('error', function (err) {
-  console.log("[mysql error]", err);
-});
+var connection = null;
+
+var printTime = function(){
+	var myDate = new Date();
+	myDate.toLocaleString(); //获取日期与时间
+	console.log(myDate);
+}
 
 var startConnection = function(){
 	//运行时的特效，可用于检验逻辑
 	console.log("[DAO function] startConnection");
-  connection.connect(function (err) {
-    connection.on('error', function (err) {
-      console.log("[mysql error]", err);
-    });
-    if (err) throw err;
-  });
+	if(connection == null){
+		connection = mysql.createConnection (option);
+	}
+	connection.connect();
+
+	connection.on("error",function (error) {
+		printTime();
+		console.log("[ERROR] ！！！！！！",error); 
+		/* setTimeout(function(){
+		 	connection = mysql.createConnection({
+			  host: 'localhost',
+			  port: 3306,
+			  user: 'root',
+			  database: 'japan',
+			  password: 'root',
+			  charset: 'utf8'
+			}).connect();
+			console.log("[DEAL] ~ ~ ~ ~ reconnected after 30s ~ ~ ~");
+		 },30000); */
+	});
 }
 
 var closeConnection = function(){
 	//运行时的特效，可用于检验逻辑
 	console.log("[DAO function] closeConnection");
 	connection.end();
+	connection = null;
 }
 
 
 var creadNote = function(note){
 	//运行时的特效，可用于检验逻辑
 	console.log("[DAO function] creadNote");
+	startConnection();
 	connection.query(
 	  'INSERT INTO notes ( title, content, author, password ) VALUES ( ?, ?, ?, ? )',
 	  [note.title, note.content, note.author, note.password],
@@ -46,12 +65,14 @@ var creadNote = function(note){
 	    return results;
 	  }
 	);
+	closeConnection();
 }
 
 
 var updateNote = function(note){
 	//运行时的特效，可用于检验逻辑
 	console.log("[DAO function] updateNote");
+	startConnection();
 	connection.query(
 	  'UPDATE notes SET title=?, content=?, author=?, password=? WHERE id=?',
 	  [note.title, note.content, note.author, note.password, note.id],
@@ -63,12 +84,14 @@ var updateNote = function(note){
 	    return results;
 	  }
 	);
+	closeConnection();
 }
 
 
 var findNotesByAuthor = function(author,callback){
 	//运行时的特效，可用于检验逻辑
 	console.log("[DAO function] findNotesByAuthor");
+	startConnection();
 	var sql='SELECT * FROM `notes` WHERE `author` like CONCAT(\'%\', ?, \'%\')';
 	// console.log(sql);
 	connection.query(
@@ -83,12 +106,14 @@ var findNotesByAuthor = function(author,callback){
 	    callback("{\"list\":"+result+"}");
 	  }
 	);
+	closeConnection();
 }
 
 
 var findPwdById = function(id,callback){
 	//运行时的特效，可用于检验逻辑
 	console.log("[DAO function] findNoteById");
+	startConnection();
 	connection.query(
 	  'SELECT n.password FROM `notes` n WHERE `id` = ?',
 	  id,
@@ -101,12 +126,14 @@ var findPwdById = function(id,callback){
 	    callback(results);
 	  }
 	);
+	closeConnection();
 }
 
 
 var deleteNoteById = function(id){
 	//运行时的特效，可用于检验逻辑
 	console.log("[DAO function] deleteNoteById");
+	startConnection();
 	connection.query(
 	  'DELETE FROM `notes` WHERE `id` = ?',
 	  id,
@@ -118,6 +145,7 @@ var deleteNoteById = function(id){
 	    return results;
 	  }
 	);
+	closeConnection();
 }
 
 
@@ -125,6 +153,7 @@ var deleteNoteById = function(id){
 var getListByPage = function(page,callback){
 	//运行时的特效，可用于检验逻辑
 	console.log("[DAO function] getListByPage");
+	startConnection();
 	var min = (page-1)*20;
 	var sql = 'SELECT * FROM `notes` LIMIT '+min+', 20'
 	connection.query(
@@ -138,12 +167,14 @@ var getListByPage = function(page,callback){
 	    callback(result);
 	  }
 	);
+	closeConnection();
 }
 
 
 var getList = function(callback){
 	//运行时的特效，可用于检验逻辑
 	console.log("[DAO function] getList");
+	startConnection();
 	connection.query(
 	  'SELECT * FROM `notes`',
 	  function (error, results, fields) {
@@ -155,21 +186,8 @@ var getList = function(callback){
 	    callback(result);
 	  }
 	);
+	closeConnection();
 }
-
-var hello = function(){
-  console.log("hello world");
-  var option={
-    host: config.host,
-    port: config.port,
-    user: config.user,
-    database: config.database,
-    password: config.password,
-    charset: config.charset
-  };
-  console.log(option);
-}
-
 
 module.exports = {
 	startConnection,
@@ -180,6 +198,5 @@ module.exports = {
 	updateNote,
 	deleteNoteById,
 	getListByPage,
-	getList,
-  hello
+	getList
 }

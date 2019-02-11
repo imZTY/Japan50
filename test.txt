@@ -1,0 +1,15 @@
+卷 资料盘 的文件夹 PATH 列表
+卷序列号为 0005-6146
+F:\MYPROJECT\WX\NODE\JAPAN50
+├─client
+│  ├─images
+│  │  ├─bar
+│  │  └─game
+│  └─pages
+│      ├─game_main
+│      ├─note_add
+│      ├─note_detail
+│      └─note_list
+└─server
+    ├─MVC
+    └─node_modules
