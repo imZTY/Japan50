@@ -839,6 +839,8 @@ Page({
     this.start();
   },
 
+
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -926,6 +928,26 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     });
+    wx.login({
+      success(res) {
+        if (res.code) {
+          console.log(res)
+          // 发起网络请求
+          wx.request({
+            url: 'https://api.weixin.qq.com/sns/jscode2session',
+            method: 'get',
+            data: {
+              js_code: res.code,
+              appid: '',
+              secret: '',
+              grant_type: 'authorization_code'
+            }
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    })
   },
   check:function(event){
     // console.log(event);

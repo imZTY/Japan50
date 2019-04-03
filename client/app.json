@@ -1,34 +1,13 @@
 {
   "pages":[
-    "pages/game_main/gameMain",
-    "pages/note_list/noteList",
-    "pages/note_add/noteAdd",
-    "pages/note_detail/noteDetail"
+    "pages/game_main/gameMain"
   ],
   "window":{
     "backgroundColor":"#3F51B5",
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#3F51B5",
     "navigationBarTitleText": "日语50音消消乐",
-    "navigationBarTextStyle":"#FFFFFF",
+    "navigationBarTextStyle":"white",
     "enablePullDownRefresh": false
-  }, 
-  "tabBar": {
-    "list": [
-      {
-        "pagePath": "pages/game_main/gameMain",
-        "text": "游戏主页",
-        "iconPath": "images/bar/ic_games_black_48dp.png",
-        "selectedIconPath": "images/bar/ic_games_black_48dp.png"
-      },
-      {
-        "pagePath": "pages/note_list/noteList",
-        "text": "笔记大厅",
-        "iconPath": "images/bar/ic_note_add_black_48dp.png",
-        "selectedIconPath": "images/bar/ic_note_add_black_48dp.png"
-      }
-    ],
-    "color": "#C5CAE9",
-    "selectedColor": "#BDBDBD"
   }
 }
